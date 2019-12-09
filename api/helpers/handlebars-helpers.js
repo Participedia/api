@@ -834,7 +834,7 @@ module.exports = {
     }
   },
 
-  jsCacheVersion(filepath) {
+  lastModifiedInMs(filepath) {
     // return last modified datetime in ms for filepath
     const stats = fs.statSync(`${process.env.PWD}/public${filepath}`);
     return stats.mtimeMs;
