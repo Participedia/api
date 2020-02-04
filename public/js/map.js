@@ -16,7 +16,7 @@ const map = {
 
     this.map = new google.maps.Map(mapEl, {
       center: { lat: 6.1259722, lng: 20.9404108 },
-      zoom: 2.5,
+      zoom: this.mapZoomLevel(),
       disableDefaultUI: true,
       zoomControl: false,
       styles: mapStyle,
@@ -27,6 +27,16 @@ const map = {
     if (!isMethodTab) {
       // don't fetch results if we are on the methods tab
       this.fetchMapResults();
+    }
+  },
+
+  mapZoomLevel () {
+    if (window.innerWidth > 1200) {
+      return 2.5;
+    } else if (window.innerWidth < 1200 && window.innerWidth > 800) {
+      return 2;
+    } else if (window.innerWidth < 800) {
+      return 1.75;
     }
   },
 
