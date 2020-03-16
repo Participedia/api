@@ -24,7 +24,7 @@ body.modal-open {
   background: #fff;
   border: 0;
   bottom: 0;
-  box-shadow: 0 0 1800px 400px rgba(0, 0, 0, .75);
+  box-shadow: 0 0 6000px 6000px rgba(0, 0, 0, .75);
   left: 0;
   margin: auto;
   max-height: 100%;

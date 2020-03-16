@@ -194,7 +194,7 @@ module.exports = {
 
   getLocale(context) {
     const req = context.data.root.req;
-    if (req.cookies.locale) {
+    if (req && req.cookies && req.cookies.locale) {
       return req.cookies.locale;
     } else {
       return "en";

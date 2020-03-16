@@ -15,6 +15,7 @@
     "@sentry/node": "5.5.0",
     "apicache": "^1.1.1",
     "async": "^2.3.0",
+    "auth0-lock": "11.22.4",
     "autocompleter": "^4.0.2",
     "aws-sdk": "^2.70.0",
     "bluebird": "^3.4.7",
@@ -62,7 +63,7 @@
   },
   "devDependencies": {
     "auth0": "^2.14.0",
-    "auth0-js": "^9.9.0",
+    "auth0-js": "^9.12.2",
     "browserify": "^16.2.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",

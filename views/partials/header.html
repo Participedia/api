@@ -23,7 +23,7 @@
               {{t "Profile"}}
             </a>
           {{else}}
-            <a href="/login" class="button button-dark-grey">{{t "Login"}}</a>
+            <a href="#" class="button button-dark-grey" class="js-header-login-btn">{{t "Login"}}</a>
           {{/if}}
         </li>
         <li>
@@ -85,7 +85,8 @@
             </div>
           </div>
         {{else}}
-          <a href="/login" class="button button-dark-grey js-header-login-button">{{t "Login"}}</a>
+          <a href="#" class="button button-dark-grey js-header-login-button" style="margin-right: .5em">{{t "Log in"}}</a>
+          <a href="#" class="button button-dark-grey js-header-signup-button">{{t "Sign up"}}</a>
         {{/if}}
       </div>
     </div>

@@ -10,8 +10,8 @@ const exphbs = require("express-handlebars");
 const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const passport = require("passport");
-const Auth0Strategy = require("passport-auth0");
+//const passport = require("passport");
+//const Auth0Strategy = require("passport-auth0");
 const i18n = require("i18n");
 const apicache = require("apicache");
 const compression = require("compression");
@@ -109,86 +109,86 @@ if (app.get("env") === "production") {
 app.use(session(sess));
 app.set("trust proxy", 1);
 
-// Configure Passport to use Auth0
-const strategy = new Auth0Strategy(
-  {
-    domain: process.env.AUTH0_DOMAIN,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL: process.env.CALLBACK_URL || "/redirect",
-  },
-  function(accessToken, refreshToken, extraParams, profile, done) {
-    // accessToken is the token to call Auth0 API (not needed in the most cases)
-    // extraParams.id_token has the JSON Web Token
-    // profile has all the information from the user
-    return done(null, profile);
-  }
-);
+// // Configure Passport to use Auth0
+// const strategy = new Auth0Strategy(
+//   {
+//     domain: process.env.AUTH0_DOMAIN,
+//     clientID: process.env.AUTH0_CLIENT_ID,
+//     clientSecret: process.env.AUTH0_CLIENT_SECRET,
+//     callbackURL: process.env.CALLBACK_URL || "/redirect",
+//   },
+//   function(accessToken, refreshToken, extraParams, profile, done) {
+//     // accessToken is the token to call Auth0 API (not needed in the most cases)
+//     // extraParams.id_token has the JSON Web Token
+//     // profile has all the information from the user
+//     return done(null, profile);
+//   }
+// );
 
-passport.use(strategy);
+// passport.use(strategy);
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-// You can use this section to keep a smaller payload
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
+// // You can use this section to keep a smaller payload
+// passport.serializeUser(function(user, done) {
+//   done(null, user);
+// });
 
-passport.deserializeUser(async function(user, done) {
-  // get db user from auth0 user data
-  const dbUser = await getUserOrCreateUser(user._json);
-  done(null, dbUser);
-});
+// passport.deserializeUser(async function(user, done) {
+//   // get db user from auth0 user data
+//   const dbUser = await getUserOrCreateUser(user._json);
+//   done(null, dbUser);
+// });
 
-// Perform the login, after login Auth0 will redirect to callback
-app.get("/login", function(req, res, next) {
-  // set returnTo session var to referer so user is redirected to current page after login
-  req.session.returnTo = req.headers.referer;
-  req.session.refreshAndClose = req.query.refreshAndClose;
-  passport.authenticate(
-    "auth0",
-    {
-      scope: "offline openid email profile",
-    },
-    () => {}
-  )(req, res, next);
-});
+// // Perform the login, after login Auth0 will redirect to callback
+// app.get("/login", function(req, res, next) {
+//   // set returnTo session var to referer so user is redirected to current page after login
+//   req.session.returnTo = req.headers.referer;
+//   req.session.refreshAndClose = req.query.refreshAndClose;
+//   passport.authenticate(
+//     "auth0",
+//     {
+//       scope: "offline openid email profile",
+//     },
+//     () => {}
+//   )(req, res, next);
+// });
 
-// Perform the final stage of authentication and redirect to previously requested URL or '/user'
-app.get("/redirect", function(req, res, next) {
-  passport.authenticate("auth0", function(err, user, info) {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      // return res.redirect("/login");
-      return res.redirect("/");
-    }
-    req.logIn(user, function(err) {
-      if (err) {
-        return next(err);
-      }
-      let returnToUrl = req.session.returnTo;
-      const refreshAndClose = req.session.refreshAndClose;
-      delete req.session.returnTo;
-      delete req.session.refreshAndClose;
-      if (refreshAndClose === "true") {
-        returnToUrl = returnToUrl + "?refreshAndClose=true";
-      }
-      res.redirect(returnToUrl || "/");
-    });
-  })(req, res, next);
-});
+// // Perform the final stage of authentication and redirect to previously requested URL or '/user'
+// app.get("/redirect", function(req, res, next) {
+//   passport.authenticate("auth0", function(err, user, info) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (!user) {
+//       // return res.redirect("/login");
+//       return res.redirect("/");
+//     }
+//     req.logIn(user, function(err) {
+//       if (err) {
+//         return next(err);
+//       }
+//       let returnToUrl = req.session.returnTo;
+//       const refreshAndClose = req.session.refreshAndClose;
+//       delete req.session.returnTo;
+//       delete req.session.refreshAndClose;
+//       if (refreshAndClose === "true") {
+//         returnToUrl = returnToUrl + "?refreshAndClose=true";
+//       }
+//       res.redirect(returnToUrl || "/");
+//     });
+//   })(req, res, next);
+// });
 
-// Perform session logout and redirect to homepage
-app.get("/logout", (req, res) => {
-  const currentUrl = `${req.protocol}://${req.headers.host}`;
-  req.logout();
-  res.redirect(
-    `https://${process.env.AUTH0_DOMAIN}/v2/logout?returnTo=${currentUrl}`
-  );
-});
+// // Perform session logout and redirect to homepage
+// app.get("/logout", (req, res) => {
+//   const currentUrl = `${req.protocol}://${req.headers.host}`;
+//   req.logout();
+//   res.redirect(
+//     `https://${process.env.AUTH0_DOMAIN}/v2/logout?returnTo=${currentUrl}`
+//   );
+// });
 
 const cache = apicache.middleware;
 apicache.options({
@@ -244,6 +244,15 @@ app.get("/set-locale", function(req, res) {
 app.get("/about", function(req, res) {
   res.status(200).render("about-view");
 });
+
+app.get("/login", function(req, res) {
+  res.status(200).render("login-view");
+});
+
+app.get("/callback", function(req, res) {
+  res.status(200).render("callback-view");
+});
+
 app.get("/legal", function(req, res) {
   res.status(200).render("legal-view");
 });

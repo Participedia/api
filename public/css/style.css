@@ -33,3 +33,13 @@
 @import url("/css/user.css");
 
 @import url("/css/header.css");
+
+.u-margin-bottom-small {
+  margin-bottom: 1em;
+}
+.u-margin-bottom-medium {
+  margin-bottom: 2em;
+}
+.u-margin-bottom-large {
+  margin-bottom: 3em;
+}
