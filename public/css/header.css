@@ -89,6 +89,21 @@ header a {
   font-weight: 800;
 }
 
+.header-login-button {
+  color: #fff;
+  text-decoration: none;
+  min-width: 60px;
+  justify-content: center;
+  padding: 8px 15px;
+  display: inline-flex;
+  border-width: 0;
+  line-height: 1.5rem;
+  cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  margin-right: .5em
+}
+
 .icon-container {
   background-color: #4D4D4D;
   order: -1;
@@ -340,11 +355,13 @@ header .right-col {
   background-color: #fff!important;
   margin-bottom: 2rem;
 }
-.auth0-lock.auth0-lock .auth0-lock-submit {
-  border-radius: 0!important;
-  font-weight: bold;
+.auth0-lock-submit {
   text-transform: unset!important;
+  letter-spacing: unset!important;
+  font-size: 1rem!important;
+  border-radius: .2rem!important;
 }
+
 .auth0-lock.auth0-lock .auth0-lock-close-button, .auth0-lock.auth0-lock .auth0-lock-back-button {
   box-shadow: none!important;
   width: 1rem!important;
@@ -370,14 +387,16 @@ header .right-col {
   background-color: #fff!important;
 }
 
+.auth0-lock.auth0-lock .auth0-lock-submit {
+  width: calc(100% - 2rem)!important;
+  margin: 1rem auto!important;
+}
+
 @media (max-width: 900px) {
   .auth0-lock.auth0-lock .auth0-lock-cred-pane {
     height: 100VH!important;
   }
-  .auth0-lock.auth0-lock .auth0-lock-submit {
-    width: calc(100% - 2rem)!important;
-    margin: 1rem auto!important;
-  }
+
 }
 
 @media (max-width: 1000px) {
