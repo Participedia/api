@@ -799,6 +799,42 @@ module.exports = {
     }
   },
 
+  paginationSummaryString() {
+    //itemRange, total, pageNum, pageTotal, searchQuery, type
+    const itemRange = "1-22";
+    const total = "43"
+    const searchQuery = "vancouver";
+    const pageNum = "1"
+    const totalPages = "3";
+    const type = "case"
+
+    const summaryStringsByType = {
+      all: `${itemRange} of ${total} cases, methods, organizations and collections (page ${pageNum} of ${totalPages}`,
+      case: `${itemRange} of ${total} cases ${searchQuery} (page ${pageNum} of ${totalPages}`,
+      method: `${itemRange} of ${total} methods ${searchQuery} (page ${pageNum} of ${totalPages}`,
+      organizations: `${itemRange} of ${total} organizations (page ${pageNum} of ${totalPages}`,
+      collection: `${itemRange} of ${total} collections (page ${pageNum} of ${totalPages}`
+    };
+
+    const summaryStringsWithQueryByType = {
+      all: `${itemRange} of ${total} cases, methods, organizations and collections for ${searchQuery} (page ${pageNum} of ${totalPages}`,
+      case: `${itemRange} of ${total} cases for ${searchQuery} (page ${pageNum} of ${totalPages}`,
+      method: `${itemRange} of ${total} methods for ${searchQuery} (page ${pageNum} of ${totalPages}`,
+      organizations: `${itemRange} of ${total} organizations for ${searchQuery} (page ${pageNum} of ${totalPages}`,
+      collection: `${itemRange} of ${total} collections for ${searchQuery} (page ${pageNum} of ${totalPages}`
+    };
+
+    if (searchQuery) {
+      return summaryStringsWithQueryByType[type];
+    } else {
+      return summaryStringsWithQueryByType[type];
+    }
+
+    // {{paginationNumResults cards totalResults req}} {{t "results of"}} {{totalResults}}
+    // {{#if req.query.query}} {{t "for"}} <strong>"{{req.query.query}}"</strong> {{/if}}
+    // ({{t "page"}} {{getCurrentPage req}} {{t "of"}} {{totalPages}})
+  },
+
   getCurrentPage(req) {
     if (req.query && req.query.page) {
       return req.query.page;
