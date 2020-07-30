@@ -40,7 +40,7 @@
     "jwks-rsa": "^1.1.1",
     "keypair": "^1.0.1",
     "lazysizes": "5.2.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "method-override": "^2.3.7",
     "mock-req-res": "^1.0.5",
     "moment": "^2.23.0",
