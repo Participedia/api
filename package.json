@@ -62,7 +62,7 @@
     "uuid": "3.3.2"
   },
   "devDependencies": {
-    "auth0": "^2.14.0",
+    "auth0": "^2.27.1",
     "auth0-js": "^9.13.2",
     "browserify": "^16.2.3",
     "chai": "^4.2.0",
