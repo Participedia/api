@@ -110,21 +110,20 @@ const tabsWithCards = {
   },
 
   initCardLayout() {
-    const toggleLayoutBtnsEl = this.viewEl.querySelector(
-      ".js-card-layout-btns"
+    const toggleLayoutBtnsEls = this.viewEl.querySelectorAll(
+      ".js-card-layout-btn"
     );
 
-    // event listeners for grid/list toggle buttons
-    toggleLayoutBtnsEl.addEventListener("click", event => {
-      const btnEl = event.target.closest("button");
-
-      if (btnEl) {
+    for (let index = 0; index < toggleLayoutBtnsEls.length; index++) {
+      const btnEl = toggleLayoutBtnsEls[index];
+      // event listeners for grid/list toggle buttons
+      btnEl.addEventListener("click", event => {
         const type = btnEl.getAttribute("data-type");
         if (!type) return;
         updateUrlParams("layout", type);
         this.viewEl.setAttribute("data-card-layout", type);
-      }
-    });
+      });
+    }
   }
 };
 
