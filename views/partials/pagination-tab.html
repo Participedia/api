@@ -20,7 +20,18 @@
     </li>
     {{/each}}
     <li>
-      <a href="/?page={{getNextPageNum req pages}}" data-page-num="{{getNextPageNum req pages}}" class="icon-only">
+      {{#if pagination.hasNextPage req pages}}
+        <a 
+          href="/?page={{getNextPageNum req pages}}" 
+          data-page-num="{{getNextPageNum req pages}}" 
+          class="icon-only"
+        >
+      {{else}}
+        <a 
+          data-page-num="{{getNextPageNum req pages}}" 
+          class="icon-only"
+        >
+      {{/if}}
         <span class="sr-only">{{t "next"}}</span>
         {{> icon-arrow-right}}
       </a>
