@@ -1,6 +1,12 @@
 // Depencies
 const { db, SEARCH } = require("../api/helpers/db");
 const { parse } = require("json2csv");
+const { ComprehendClient, BatchDetectDominantLanguageCommand } = require("@aws-sdk/client-comprehend");
+const comprehendClient = new ComprehendClient({
+  region: process.env.AWS_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+});
 
 // Define container
 const languageDetector = {};
@@ -27,4 +33,23 @@ languageDetector.getLocalizationData = async () => {
   }
 }
 
-languageDetector.getLocalizationData();
+languageDetector.detectLangauge = async () => {
+  const params = {
+    TextList: ['Hello World']
+  };
+  try {
+    const batchDetectDominantLanguageCommand = new BatchDetectDominantLanguageCommand(params);
+    const data = await comprehendClient.send(batchDetectDominantLanguageCommand);
+    // process data.
+    console.log(data);
+  } catch (error) {
+    // error handling.
+    console.log(error);
+  } finally {
+    // finally.
+    console.log("finaly");
+  }
+}
+
+languageDetector.detectLangauge();
+// languageDetector.getLocalizationData();
