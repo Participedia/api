@@ -11,6 +11,7 @@
     "node": "11.2.0"
   },
   "dependencies": {
+    "@aws-sdk/client-comprehend": "^3.4.1",
     "@google-cloud/translate": "^5.2.0",
     "@google/maps": "0.5.5",
     "@sentry/node": "5.5.0",
